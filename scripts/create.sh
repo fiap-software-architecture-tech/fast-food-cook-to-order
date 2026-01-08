@@ -20,7 +20,7 @@ aws dynamodb --endpoint-url=http://localhost:4566 --region=us-east-1 create-tabl
         AttributeName=sk,KeyType=RANGE \
     --global-secondary-indexes '[
         {
-            "IndexName": "GSI1_StatusCreatedAt",
+            "IndexName": "status_createdAt_idx",
             "KeySchema": [
                 { "AttributeName": "status", "KeyType": "HASH" },
                 { "AttributeName": "createdAt", "KeyType": "RANGE" }
@@ -30,8 +30,20 @@ aws dynamodb --endpoint-url=http://localhost:4566 --region=us-east-1 create-tabl
                 "ReadCapacityUnits": 5,
                 "WriteCapacityUnits": 5
             }
+        },
+        {
+            "IndexName": "queueStatus_createdAt_idx",
+            "KeySchema": [
+                { "AttributeName": "queueStatus", "KeyType": "HASH" },
+                { "AttributeName": "createdAt", "KeyType": "RANGE" }
+            ],
+            "Projection": { "ProjectionType": "ALL" },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
             }
-        ]' \
+        }
+    ]' \
     --provisioned-throughput \
         ReadCapacityUnits=5,WriteCapacityUnits=5 | tee >/dev/null 2>&1
 

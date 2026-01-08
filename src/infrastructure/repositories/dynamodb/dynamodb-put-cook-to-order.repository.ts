@@ -2,6 +2,7 @@ import { marshall } from '@aws-sdk/util-dynamodb';
 import { inject } from 'inversify';
 
 import { InfrastructureError } from '#/domain/errors';
+import { CookToOrderDynamoDTO } from '#/domain/repositories/dto/cook-to-order-dynamo.dto';
 import { IPutCookToOrderRepository } from '#/domain/repositories/put-cook-to-order.repository';
 import { ILogger } from '#/domain/services/logger.service';
 import { TYPES } from '#/infrastructure/config/di/types';
@@ -14,7 +15,7 @@ export class DynamoDbPutCookToOrderRepository implements IPutCookToOrderReposito
         @inject(TYPES.DynamoDBClient) private readonly dynamoDBClient: DynamoDBClientImplementation,
     ) {}
 
-    async execute(request: any): Promise<void> {
+    async execute(request: CookToOrderDynamoDTO): Promise<void> {
         try {
             this.logger.info('Putting cook to order in DynamoDB', { request });
             const params = {

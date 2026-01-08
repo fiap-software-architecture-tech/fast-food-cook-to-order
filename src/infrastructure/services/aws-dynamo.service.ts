@@ -3,11 +3,12 @@ import {
     DynamoDBClientConfig,
     GetItemCommand,
     GetItemCommandInput,
-    ItemResponse,
     PutItemCommand,
     PutItemCommandInput,
     QueryCommand,
     QueryCommandInput,
+    UpdateItemCommand,
+    UpdateItemCommandInput,
 } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 
@@ -29,17 +30,21 @@ export class DynamoDBClientImplementation {
         this.dynamoDB = new DynamoDBClient(dynamoConfig);
     }
 
+    public async get<T>(params: GetItemCommandInput): Promise<T | null> {
+        const result = (await this.dynamoDB.send(new GetItemCommand(params))).Item;
+        return result ? (unmarshall(result) as T) : null;
+    }
+
     public async put(params: PutItemCommandInput): Promise<void> {
         await this.dynamoDB.send(new PutItemCommand(params));
     }
 
-    public async get(params: GetItemCommandInput): Promise<ItemResponse | undefined> {
-        const result = (await this.dynamoDB.send(new GetItemCommand(params))).Item;
-        return result ? unmarshall(result) : undefined;
+    public async query<T>(params: QueryCommandInput): Promise<T[]> {
+        const result = await this.dynamoDB.send(new QueryCommand(params));
+        return result.Items && result.Items.length > 0 ? result.Items.map(item => unmarshall(item) as T) : [];
     }
 
-    public async query(params: QueryCommandInput): Promise<any[]> {
-        const result = await this.dynamoDB.send(new QueryCommand(params));
-        return result.Items && result.Items.length > 0 ? result.Items.map(item => unmarshall(item)) : [];
+    public async update(params: UpdateItemCommandInput): Promise<void> {
+        await this.dynamoDB.send(new UpdateItemCommand(params));
     }
 }

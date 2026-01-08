@@ -1,5 +1,5 @@
 import { CookToOrderDynamoDTO } from '#/domain/repositories/dto/cook-to-order-dynamo.dto';
 
-export interface IPutCookToOrderRepository {
+export interface IUpdateCookToOrderRepository {
     execute(request: CookToOrderDynamoDTO): Promise<void>;
 }
