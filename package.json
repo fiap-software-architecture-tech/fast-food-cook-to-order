@@ -1,0 +1,25 @@
+{
+  "name": "fast-food-cook-to-order",
+  "version": "1.0.0",
+  "description": "Fast Food Cook-to-Order Management Service - AWS Lambda",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "bash build-package.sh",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1691.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "fast-food",
+    "cook-to-order",
+    "dynamodb"
+  ],
+  "author": "Fast Food Team",
+  "license": "MIT"
+}
