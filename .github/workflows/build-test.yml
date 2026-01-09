@@ -57,3 +57,10 @@ jobs:
         base: modulo_4
         head: HEAD
         extra_args: --debug --only-verified
+  run-sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+    - name: SonarQube Scan
+      uses: monstar-lab-oss/sonarqube-github-action@v1.0.1
+      with:
+        token: ${{ secrets.SONARQUBE_TOKEN }}
