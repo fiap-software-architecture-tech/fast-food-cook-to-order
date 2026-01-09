@@ -39,7 +39,7 @@ export class ReadyCookToOrder implements IReadyCookToOrderUseCase {
 
             await this.updateOrderStatus.execute({
                 orderId: cookToOrder.orderId,
-                status: CookToOrderStatus.READY,
+                status: CookToOrderStatus.DONE,
             });
 
             this.logger.info('Cook to order marked as ready', { id });

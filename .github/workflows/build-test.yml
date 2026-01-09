@@ -2,7 +2,7 @@ name: 'CI - Build and Test'
 
 on:
   pull_request:
-    branches: [main]
+    branches: [modulo_4]
     paths:
       - 'src/**'
       - 'package.json'
@@ -46,7 +46,7 @@ jobs:
     - name: Security audit
       run: |
         # Tenta corrigir vulnerabilidades automaticamente
-        npm audit fix --force || true
+        # npm audit fix --force || true
         # Executa audit novamente e falha apenas em vulnerabilidades críticas
         npm audit --audit-level high
 
@@ -54,6 +54,6 @@ jobs:
       uses: trufflesecurity/trufflehog@main
       with:
         path: ./
-        base: main
+        base: modulo_4
         head: HEAD
         extra_args: --debug --only-verified

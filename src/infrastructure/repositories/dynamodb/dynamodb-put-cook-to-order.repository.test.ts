@@ -25,7 +25,6 @@ describe('DynamoDbPutCookToOrderRepository', () => {
 
     const mockRequest: CookToOrderDynamoDTO = {
         pk: 'COOK_ORDER',
-        sk: 'order-123#2025-01-09T12:00:00.000Z',
         orderId: 'order-123',
         status: CookToOrderStatus.RECEIVED,
         items: [{ name: 'Hamburger', quantity: 2 }],

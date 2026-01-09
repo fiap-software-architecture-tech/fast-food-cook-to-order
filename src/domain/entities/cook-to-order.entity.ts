@@ -29,7 +29,7 @@ export class CookToOrder {
     }
 
     ready(): void {
-        this.status = CookToOrderStatus.READY;
+        this.status = CookToOrderStatus.DONE;
         this.updatedAt = new Date().toISOString();
     }
 
