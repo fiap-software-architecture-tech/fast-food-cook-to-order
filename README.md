@@ -196,6 +196,8 @@ Os testes cobrem:
 - ✅ Integração com DynamoDB (mocked)
 - ✅ Regras de negócio
 
+O coverage dos testes está disponível em [index.html](./coverage/index.html).
+
 ## 📡 API Endpoints
 
 ### GET /cook-orders
