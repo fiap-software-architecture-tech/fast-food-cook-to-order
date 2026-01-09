@@ -5,6 +5,11 @@ const dynamodb = new AWS.DynamoDB.DocumentClient({
     region: process.env.AWS_REGION
 });
 
+// Cliente DynamoDB normal para operações de describe
+const dynamodbClient = new AWS.DynamoDB({
+    region: process.env.AWS_REGION
+});
+
 const tableName = process.env.DYNAMODB_TABLE;
 
 // Lambda handler for cook-to-order service
@@ -230,9 +235,9 @@ async function testDynamoConnection() {
         const result = await dynamodb.scan(params).promise();
         console.log('✅ DynamoDB connection successful');
 
-        // Also test table description
+        // Usar o cliente normal para describe table
         const describeParams = { TableName: tableName };
-        const tableInfo = await dynamodb.describeTable(describeParams).promise();
+        const tableInfo = await dynamodbClient.describeTable(describeParams).promise();
         
         return {
             statusCode: 200,
