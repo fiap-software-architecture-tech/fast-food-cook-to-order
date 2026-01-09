@@ -271,13 +271,25 @@ A fila utiliza algoritmo de priorização baseado em:
 - **[fast-food-payment](https://github.com/fiap-software-architecture-tech/fast-food-payment)** - Microsserviço de Pagamentos
 - **[fast-food-db-infra](https://github.com/fiap-software-architecture-tech/fast-food-db-infra)** - Infraestrutura de Banco de Dados
 
-## 💰 Custo Estimado
+## 🔄 CI/CD
 
-- **Lambda**: ~$0-5/mês
-- **DynamoDB (On-Demand)**: ~$0-10/mês
-- **API Gateway**: ~$0-3/mês
+Este repositório possui workflows automatizados de CI/CD via GitHub Actions:
 
-**Total**: ~$0-18/mês (muito econômico devido ao modelo serverless + DynamoDB on-demand)
+### CI (Integração Contínua)
+- **Trigger**: Push e Pull Request para `modulo_4`
+- **Jobs**:
+  - Lint e validação de código
+  - Build da aplicação
+  - Execução de testes unitários
+  - Cobertura de código
+  - Security audit
+
+### CD (Deploy Contínuo)
+- **Trigger**: Merge para `modulo_4`
+- **Jobs**:
+  - Build e empacotamento Lambda
+  - Deploy automático na AWS
+  - Atualização da função Lambda
 
 ## 👥 Equipe
 
