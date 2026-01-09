@@ -1,7 +1,6 @@
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { inject, injectable } from 'inversify';
 
-import { CookToOrderStatus } from '#/domain/enum/cook-to-order-status';
 import { InfrastructureError } from '#/domain/errors';
 import { CookToOrderDynamoDTO } from '#/domain/repositories/dto/cook-to-order-dynamo.dto';
 import { IUpdateCookToOrderRepository } from '#/domain/repositories/update-cook-to-order.repository';
@@ -24,7 +23,7 @@ export class DynamoDbUpdateCookToOrderRepository implements IUpdateCookToOrderRe
                 TableName: env.AWS_DYNAMO_DB,
                 Key: marshall({
                     pk: request.pk,
-                    sk: request.sk,
+                    orderId: request.orderId,
                 }),
                 UpdateExpression: 'SET #status = :status, queueStatus = :queueStatus, updatedAt = :updatedAt',
                 ConditionExpression: '#status <> :status',
@@ -33,7 +32,7 @@ export class DynamoDbUpdateCookToOrderRepository implements IUpdateCookToOrderRe
                 },
                 ExpressionAttributeValues: marshall({
                     ':status': request.status,
-                    ':queueStatus': request.status === CookToOrderStatus.READY ? 'DONE' : 'ACTIVE',
+                    ':queueStatus': request.status ? 'DONE' : 'ACTIVE',
                     ':updatedAt': request.updatedAt,
                 }),
             };
