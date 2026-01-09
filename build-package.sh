@@ -60,33 +60,40 @@ show_success "npm $(npm --version) encontrado"
 
 # Configurações
 BUILD_DIR="dist"
-SOURCE_DIR="src"
+TEMP_DIR="lambda-package-temp"
 PACKAGE_NAME="lambda-deployment.zip"
 
-show_step "Limpando diretório de build..."
-rm -rf $BUILD_DIR
+show_step "Limpando arquivos antigos..."
+rm -rf $TEMP_DIR
 rm -f $PACKAGE_NAME
-show_success "Diretório limpo"
+show_success "Arquivos antigos removidos"
 
-show_step "Criando estrutura de build..."
-mkdir -p $BUILD_DIR
-show_success "Estrutura criada"
+show_step "Verificando se o código foi compilado..."
+if [ ! -d "$BUILD_DIR" ]; then
+    show_error "Diretório dist/ não encontrado. Execute 'npm run build' primeiro."
+    exit 1
+fi
+show_success "Código compilado encontrado"
 
-show_step "Copiando código fonte..."
-cp -r $SOURCE_DIR/* $BUILD_DIR/
+show_step "Criando diretório temporário para empacotamento..."
+mkdir -p $TEMP_DIR
+show_success "Diretório temporário criado"
+
+show_step "Copiando código compilado..."
+cp -r $BUILD_DIR/* $TEMP_DIR/
 show_success "Código copiado"
 
 # Verificar se package.json existe
 if [ -f "package.json" ]; then
     show_step "Instalando dependências de produção..."
-    cp package.json $BUILD_DIR/
+    cp package.json $TEMP_DIR/
     
     # Copiar package-lock.json se existir
     if [ -f "package-lock.json" ]; then
-        cp package-lock.json $BUILD_DIR/
+        cp package-lock.json $TEMP_DIR/
     fi
     
-    cd $BUILD_DIR
+    cd $TEMP_DIR
     npm ci --omit=dev
     cd ..
     show_success "Dependências instaladas"
@@ -95,13 +102,13 @@ else
 fi
 
 show_step "Criando pacote de deployment..."
-cd $BUILD_DIR
+cd $TEMP_DIR
 zip -r ../$PACKAGE_NAME . > /dev/null
 cd ..
 show_success "Pacote criado: $PACKAGE_NAME"
 
 show_step "Limpando arquivos temporários..."
-rm -rf $BUILD_DIR
+rm -rf $TEMP_DIR
 show_success "Limpeza concluída"
 
 # Verificar tamanho do pacote
