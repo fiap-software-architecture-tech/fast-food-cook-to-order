@@ -54,7 +54,6 @@ describe('CookToOrderMapper', () => {
             const dynamoData = CookToOrderMapper.toDynamoDB(cookToOrder);
 
             expect(dynamoData.pk).toBe('COOK_ORDER');
-            expect(dynamoData.sk).toBe('order-456#2025-01-09T12:00:00.000Z');
             expect(dynamoData.orderId).toBe('order-456');
             expect(dynamoData.status).toBe(CookToOrderStatus.IN_PROGRESS);
             expect(dynamoData.items).toEqual([{ name: 'Pizza', quantity: 1 }]);

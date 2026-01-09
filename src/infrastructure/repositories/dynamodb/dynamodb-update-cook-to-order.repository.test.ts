@@ -25,7 +25,6 @@ describe('DynamoDbUpdateCookToOrderRepository', () => {
 
     const mockRequest: CookToOrderDynamoDTO = {
         pk: 'COOK_ORDER',
-        sk: 'order-123#2025-01-09T12:00:00.000Z',
         orderId: 'order-123',
         status: CookToOrderStatus.IN_PROGRESS,
         items: [{ name: 'Hamburger', quantity: 2 }],
@@ -48,12 +47,12 @@ describe('DynamoDbUpdateCookToOrderRepository', () => {
         });
     });
 
-    it('should update cook to order with READY status setting queueStatus to DONE', async () => {
+    it('should update cook to order with DONE status setting queueStatus to DONE', async () => {
         vi.spyOn(dynamoDBClientMock, 'update').mockResolvedValueOnce(undefined);
 
         const readyRequest: CookToOrderDynamoDTO = {
             ...mockRequest,
-            status: CookToOrderStatus.READY,
+            status: CookToOrderStatus.DONE,
         };
 
         await repository.execute(readyRequest);

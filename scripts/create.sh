@@ -12,13 +12,13 @@ aws dynamodb --endpoint-url=http://localhost:4566 --region=us-east-1 create-tabl
     --table-name fast-food-cook-to-order-db \
     --attribute-definitions \
         AttributeName=pk,AttributeType=S \
-        AttributeName=sk,AttributeType=S \
+        AttributeName=orderId,AttributeType=S \
         AttributeName=status,AttributeType=S \
-        AttributeName=createdAt,AttributeType=S \
+        AttributeName=createdAt,AttributeType=N \
         AttributeName=queueStatus,AttributeType=S \
     --key-schema \
         AttributeName=pk,KeyType=HASH \
-        AttributeName=sk,KeyType=RANGE \
+        AttributeName=orderId,KeyType=RANGE \
     --global-secondary-indexes '[
         {
             "IndexName": "status_createdAt_idx",

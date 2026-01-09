@@ -47,7 +47,7 @@ describe('ReadyCookToOrder', () => {
         expect(updateMock).toHaveBeenCalled();
         expect(updateOrderStatusGateway.execute).toHaveBeenCalledWith({
             orderId: 'order-123',
-            status: CookToOrderStatus.READY,
+            status: CookToOrderStatus.DONE,
         });
         expect(loggerMock.info).toHaveBeenCalledWith('Cook to order marked as ready', { id: 'order-123' });
     });
