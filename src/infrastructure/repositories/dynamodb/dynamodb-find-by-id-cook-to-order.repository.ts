@@ -23,7 +23,7 @@ export class DynamoDbFindByIdCookToOrderRepository implements IFindByIdCookToOrd
             this.logger.info('Finding by id cook to order in DynamoDB', { id });
             const params = {
                 TableName: env.AWS_DYNAMO_DB,
-                Key: marshall({ pk: 'COOK_ORDER', sk: id }, { convertClassInstanceToMap: true }),
+                Key: marshall({ pk: 'COOK_ORDER', orderId: id }, { convertClassInstanceToMap: true }),
             };
 
             const result = await this.dynamoDBClient.get<CookToOrderDynamoDTO>(params);
