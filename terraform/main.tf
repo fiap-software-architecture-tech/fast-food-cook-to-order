@@ -111,14 +111,14 @@ resource "aws_api_gateway_resource" "health" {
 # Proxy resource para capturar subrotas
 resource "aws_api_gateway_resource" "proxy_resource" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  parent_id   = aws_api_gateway_resource.main_resource.id
+  parent_id   = aws_api_gateway_rest_api.main.root_resource_id
   path_part   = "{proxy+}"
 }
 
 # Method ANY para o recurso principal
 resource "aws_api_gateway_method" "main_any" {
   rest_api_id   = aws_api_gateway_rest_api.main.id
-  resource_id   = aws_api_gateway_resource.main_resource.id
+  resource_id   = aws_api_gateway_rest_api.main.root_resource_id
   http_method   = "ANY"
   authorization = "NONE"
 }
@@ -134,7 +134,7 @@ resource "aws_api_gateway_method" "proxy_any" {
 # Integration para recurso principal
 resource "aws_api_gateway_integration" "main_integration" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  resource_id = aws_api_gateway_resource.main_resource.id
+  resource_id = aws_api_gateway_rest_api.main.root_resource_id
   http_method = aws_api_gateway_method.main_any.http_method
 
   integration_http_method = "POST"
@@ -156,14 +156,14 @@ resource "aws_api_gateway_integration" "proxy_integration" {
 # CORS OPTIONS para recurso principal
 resource "aws_api_gateway_method" "main_options" {
   rest_api_id   = aws_api_gateway_rest_api.main.id
-  resource_id   = aws_api_gateway_resource.main_resource.id
+  resource_id   = aws_api_gateway_rest_api.main.root_resource_id
   http_method   = "OPTIONS"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "main_options_integration" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  resource_id = aws_api_gateway_resource.main_resource.id
+  resource_id = aws_api_gateway_rest_api.main.root_resource_id
   http_method = aws_api_gateway_method.main_options.http_method
 
   type = "MOCK"
@@ -177,7 +177,7 @@ resource "aws_api_gateway_integration" "main_options_integration" {
 
 resource "aws_api_gateway_method_response" "main_options_response" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  resource_id = aws_api_gateway_resource.main_resource.id
+  resource_id = aws_api_gateway_rest_api.main.root_resource_id
   http_method = aws_api_gateway_method.main_options.http_method
   status_code = "200"
 
@@ -190,7 +190,7 @@ resource "aws_api_gateway_method_response" "main_options_response" {
 
 resource "aws_api_gateway_integration_response" "main_options_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  resource_id = aws_api_gateway_resource.main_resource.id
+  resource_id = aws_api_gateway_rest_api.main.root_resource_id
   http_method = aws_api_gateway_method.main_options.http_method
   status_code = aws_api_gateway_method_response.main_options_response.status_code
 
