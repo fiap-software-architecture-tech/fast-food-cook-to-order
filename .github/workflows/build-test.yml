@@ -57,13 +57,14 @@ jobs:
         base: modulo_4
         head: HEAD
         extra_args: --debug --only-verified
-  run-sonarqube:
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
     steps:
-      - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@master
+      - uses: actions/checkout@v4
         with:
-          pollingTimeoutSec: 600
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
