@@ -23,7 +23,7 @@ export const cookToOrderParamsRequestSchema = z.object({
 });
 
 export const cookToOrderQueryRequestSchema = z.object({
-    status: z.enum(['RECEIVED', 'IN_PROGRESS', 'READY']).optional(),
+    status: z.enum(['RECEIVED', 'IN_PROGRESS', 'DONE']).optional(),
 });
 
 export type CookToOrderCreateRequest = z.infer<typeof cookToOrderCreateRequestSchema>;
