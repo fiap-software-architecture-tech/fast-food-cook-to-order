@@ -6,6 +6,6 @@ export interface CookToOrderDynamoDTO {
     orderId: string;
     status: CookToOrderStatus;
     items: Array<any>;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: number;
+    updatedAt: number;
 }

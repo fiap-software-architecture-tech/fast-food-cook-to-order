@@ -1,5 +1,5 @@
 export enum CookToOrderStatus {
-    CREATED = 'CREATED',
+    RECEIVED = 'RECEIVED',
     IN_PROGRESS = 'IN_PROGRESS',
     READY = 'READY',
 }

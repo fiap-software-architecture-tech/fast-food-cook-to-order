@@ -1,5 +1,5 @@
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { CookToOrderStatus } from '#/domain/enum/cook-to-order-status';
 import { InfrastructureError } from '#/domain/errors';
@@ -10,6 +10,7 @@ import { TYPES } from '#/infrastructure/config/di/types';
 import { env } from '#/infrastructure/config/env';
 import { DynamoDBClientImplementation } from '#/infrastructure/services/aws-dynamo.service';
 
+@injectable()
 export class DynamoDbUpdateCookToOrderRepository implements IUpdateCookToOrderRepository {
     constructor(
         @inject(TYPES.Logger) private readonly logger: ILogger,

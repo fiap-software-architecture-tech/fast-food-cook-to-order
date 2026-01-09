@@ -1,7 +1,7 @@
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
-import { CookToOrder } from '#/domain/entities/cook-to-order';
+import { CookToOrder } from '#/domain/entities/cook-to-order.entity';
 import { InfrastructureError } from '#/domain/errors';
 import { CookToOrderDynamoDTO } from '#/domain/repositories/dto/cook-to-order-dynamo.dto';
 import { IFindByIdCookToOrderRepository } from '#/domain/repositories/find-by-id-cook-to-order.repository';
@@ -11,6 +11,7 @@ import { env } from '#/infrastructure/config/env';
 import { CookToOrderMapper } from '#/infrastructure/repositories/dynamodb/mappers/cook-to-order.mapper';
 import { DynamoDBClientImplementation } from '#/infrastructure/services/aws-dynamo.service';
 
+@injectable()
 export class DynamoDbFindByIdCookToOrderRepository implements IFindByIdCookToOrderRepository {
     constructor(
         @inject(TYPES.Logger) private readonly logger: ILogger,

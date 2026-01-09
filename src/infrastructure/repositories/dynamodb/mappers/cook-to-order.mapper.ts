@@ -1,8 +1,8 @@
-import { CookToOrder } from '#/domain/entities/cook-to-order';
+import { CookToOrder } from '#/domain/entities/cook-to-order.entity';
 import { CookToOrderDynamoDTO } from '#/domain/repositories/dto/cook-to-order-dynamo.dto';
 
 export class CookToOrderMapper {
-    static toDomain(data: any): CookToOrder {
+    static toDomain(data: CookToOrderDynamoDTO): CookToOrder {
         if (!data) {
             throw new Error('Invalid data for CookToOrder mapping');
         }
@@ -11,20 +11,20 @@ export class CookToOrderMapper {
             orderId: data.orderId,
             status: data.status,
             items: data.items || [],
-            createdAt: new Date(data.createdAt),
-            updatedAt: new Date(data.updatedAt),
+            createdAt: new Date(data.createdAt).toISOString(),
+            updatedAt: new Date(data.updatedAt).toISOString(),
         });
     }
 
     static toDynamoDB(cookToOrder: CookToOrder): CookToOrderDynamoDTO {
         return {
             pk: 'COOK_ORDER',
-            sk: `${cookToOrder.orderId}#${cookToOrder.createdAt.toISOString()}`,
+            sk: `${cookToOrder.orderId}#${cookToOrder.createdAt}`,
             orderId: cookToOrder.orderId,
             status: cookToOrder.status,
             items: cookToOrder.items,
-            createdAt: cookToOrder.createdAt.toISOString(),
-            updatedAt: cookToOrder.updatedAt.toISOString(),
+            createdAt: new Date(cookToOrder.createdAt).getTime(),
+            updatedAt: new Date(cookToOrder.updatedAt).getTime(),
         };
     }
 }

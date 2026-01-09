@@ -1,4 +1,4 @@
-import { CookToOrder } from '#/domain/entities/cook-to-order';
+import { CookToOrder } from '#/domain/entities/cook-to-order.entity';
 
 export interface IFindByIdCookToOrderRepository {
     execute(id: string): Promise<CookToOrder | null>;

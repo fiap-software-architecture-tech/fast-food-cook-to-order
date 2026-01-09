@@ -11,9 +11,11 @@ import {
     UpdateItemCommandInput,
 } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { injectable } from 'inversify';
 
 import { env } from '#/infrastructure/config/env';
 
+@injectable()
 export class DynamoDBClientImplementation {
     private dynamoDB: DynamoDBClient;
 

@@ -30,7 +30,7 @@ export function bindRepositories(container: Container) {
         .to(DynamoDbPutCookToOrderRepository)
         .inSingletonScope();
     container
-        .bind<IUpdateCookToOrderRepository>(TYPES.PutCookToOrderRepository)
+        .bind<IUpdateCookToOrderRepository>(TYPES.UpdateCookToOrderRepository)
         .to(DynamoDbUpdateCookToOrderRepository)
         .inSingletonScope();
 }

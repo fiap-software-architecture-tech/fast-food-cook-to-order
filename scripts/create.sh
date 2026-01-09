@@ -15,6 +15,7 @@ aws dynamodb --endpoint-url=http://localhost:4566 --region=us-east-1 create-tabl
         AttributeName=sk,AttributeType=S \
         AttributeName=status,AttributeType=S \
         AttributeName=createdAt,AttributeType=S \
+        AttributeName=queueStatus,AttributeType=S \
     --key-schema \
         AttributeName=pk,KeyType=HASH \
         AttributeName=sk,KeyType=RANGE \

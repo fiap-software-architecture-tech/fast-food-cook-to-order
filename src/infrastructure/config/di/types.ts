@@ -6,6 +6,15 @@ export const TYPES = {
     PutCookToOrderRepository: Symbol.for('PutCookToOrderRepository'),
     UpdateCookToOrderRepository: Symbol.for('UpdateCookToOrderRepository'),
 
+    // Controllers
+    CookToOrderController: Symbol.for('CookToOrderController'),
+
+    // Use Cases
+    CreateCookToOrderUseCase: Symbol.for('CreateCookToOrderUseCase'),
+    ListCookToOrderUseCase: Symbol.for('ListCookToOrderUseCase'),
+    StartCookToOrderUseCase: Symbol.for('StartCookToOrderUseCase'),
+    ReadyCookToOrderUseCase: Symbol.for('ReadyCookToOrderUseCase'),
+
     // Gateway
     UpdateOrderStatusGateway: Symbol.for('UpdateOrderStatusGateway'),
 
